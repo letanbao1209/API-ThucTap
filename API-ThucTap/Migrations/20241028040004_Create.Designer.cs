@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_ThucTap.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241024153342_Increate5")]
-    partial class Increate5
+    [Migration("20241028040004_Create")]
+    partial class Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,18 +127,13 @@ namespace API_ThucTap.Migrations
                     b.Property<int>("VisitScheduleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VisitScheduleId1")
-                        .HasColumnType("int");
-
                     b.HasKey("JobId");
 
                     b.HasIndex("UserId");
 
                     b.HasIndex("VisitScheduleId");
 
-                    b.HasIndex("VisitScheduleId1");
-
-                    b.ToTable("Job");
+                    b.ToTable("Jobs");
                 });
 
             modelBuilder.Entity("API_ThucTap.Models.Notification", b =>
@@ -227,14 +222,9 @@ namespace API_ThucTap.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("SurveyId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Surveys");
                 });
@@ -341,10 +331,6 @@ namespace API_ThucTap.Migrations
                         .HasForeignKey("VisitScheduleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("API_ThucTap.Models.VisitSchedule", null)
-                        .WithMany("Job")
-                        .HasForeignKey("VisitScheduleId1");
                 });
 
             modelBuilder.Entity("API_ThucTap.Models.Notification", b =>
@@ -372,14 +358,6 @@ namespace API_ThucTap.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("API_ThucTap.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API_ThucTap.Models.User", b =>
@@ -404,11 +382,6 @@ namespace API_ThucTap.Migrations
                         .HasForeignKey("DistributorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("API_ThucTap.Models.VisitSchedule", b =>
-                {
-                    b.Navigation("Job");
                 });
 #pragma warning restore 612, 618
         }

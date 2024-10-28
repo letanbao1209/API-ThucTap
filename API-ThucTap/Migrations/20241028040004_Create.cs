@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API_ThucTap.Migrations
 {
-    public partial class Increate5 : Migration
+    public partial class Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -161,8 +161,7 @@ namespace API_ThucTap.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -173,16 +172,10 @@ namespace API_ThucTap.Migrations
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Surveys_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Job",
+                name: "Jobs",
                 columns: table => new
                 {
                     JobId = table.Column<int>(type: "int", nullable: false)
@@ -192,29 +185,23 @@ namespace API_ThucTap.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    VisitScheduleId = table.Column<int>(type: "int", nullable: false),
-                    VisitScheduleId1 = table.Column<int>(type: "int", nullable: true)
+                    VisitScheduleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Job", x => x.JobId);
+                    table.PrimaryKey("PK_Jobs", x => x.JobId);
                     table.ForeignKey(
-                        name: "FK_Job_Users_UserId",
+                        name: "FK_Jobs_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Job_VisitSchedules_VisitScheduleId",
+                        name: "FK_Jobs_VisitSchedules_VisitScheduleId",
                         column: x => x.VisitScheduleId,
                         principalTable: "VisitSchedules",
                         principalColumn: "VisitScheduleId",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Job_VisitSchedules_VisitScheduleId1",
-                        column: x => x.VisitScheduleId1,
-                        principalTable: "VisitSchedules",
-                        principalColumn: "VisitScheduleId");
                 });
 
             migrationBuilder.CreateTable(
@@ -249,19 +236,14 @@ namespace API_ThucTap.Migrations
                 column: "AreaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Job_UserId",
-                table: "Job",
+                name: "IX_Jobs_UserId",
+                table: "Jobs",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Job_VisitScheduleId",
-                table: "Job",
+                name: "IX_Jobs_VisitScheduleId",
+                table: "Jobs",
                 column: "VisitScheduleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Job_VisitScheduleId1",
-                table: "Job",
-                column: "VisitScheduleId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notifications_UserId",
@@ -277,11 +259,6 @@ namespace API_ThucTap.Migrations
                 name: "IX_Surveys_UserId",
                 table: "Surveys",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Surveys_UserId1",
-                table: "Surveys",
-                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
@@ -305,7 +282,7 @@ namespace API_ThucTap.Migrations
                 name: "Articles");
 
             migrationBuilder.DropTable(
-                name: "Job");
+                name: "Jobs");
 
             migrationBuilder.DropTable(
                 name: "Notifications");
